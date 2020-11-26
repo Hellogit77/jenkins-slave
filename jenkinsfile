@@ -7,12 +7,8 @@ pipeline {
             steps {
                 sh """
                     yum install epel-release -y
-                """
-            }
-        stage("Install setuptools")
-            steps {
-                sh """
                     yum install python-setuptools -y
+
                 """
             }
         stage("use wget")
@@ -25,22 +21,15 @@ pipeline {
             steps {
                 sh """
                     python get-pip.py
-                """
-            }        
-        stage("Setup script") {
-            steps {
-                sh """
                     pip install -U pytest -y
                 """
-            }
-        }
-        stage("Run unit tests") {
+            }        
+        stage("Run unit tests")
             steps {
                 sh """
                     python -m pytest
                 """
             }
-        }
     }
     post {
         always {
