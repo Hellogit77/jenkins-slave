@@ -3,7 +3,7 @@ pipeline {
         label 'generic'
     }
     stages {
-        stage("Install epel")
+        stage("Install epel") {
             steps {
                 sh """
                     yum install epel-release -y
@@ -11,25 +11,29 @@ pipeline {
 
                 """
             }
-        stage("use wget")
+        }
+        stage("use wget") {
             steps {
                 sh """
                     wget https://bootstrap.pypa.io/get-pip.py
                 """
             }
-        stage("Setup pip")
+        }
+        stage("Setup pip") {
             steps {
                 sh """
                     python get-pip.py
                     pip install -U pytest -y
                 """
-            }        
-        stage("Run unit tests")
+            }
+        }
+        stage("Run unit tests") {
             steps {
                 sh """
                     python -m pytest
                 """
             }
+        }
     }
     post {
         always {
