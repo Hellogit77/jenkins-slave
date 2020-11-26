@@ -1,0 +1,48 @@
+pipeline {
+    agent {
+        label 'generic'
+    } //agent
+    stages {
+        stage("Setup script") {
+            steps {
+                sh """
+                    yum install epel-release -y
+                """
+            }
+            steps {
+                sh """
+                    yum install python setuptools -y
+                """
+            }
+            steps {
+                sh """
+                    wget https://bootstrap.pypa.io/get-pip.py
+                """
+            }
+            steps {
+                sh """
+                    python get-pip.py
+                """
+            }
+            steps {
+                sh """
+                    pip install -U pytest
+                """
+            } //steps
+        } //stage
+        stage("Run unit tests") {
+            steps {
+                sh """
+                    python -m pytest
+                """
+            } //steps
+        } //stage
+    } //stages
+    post {
+        always {
+            sh """
+                pip uninstall pytest -y
+            """
+        } //always
+    } //post
+} //pipeline
