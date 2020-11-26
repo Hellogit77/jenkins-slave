@@ -6,8 +6,8 @@ pipeline {
         stage("Install epel") {
             steps {
                 sh """
-                    yum install epel-release -y
-                    yum install python-setuptools -y
+                    sudo yum install epel-release -y
+                    sudo yum install python-setuptools -y
 
                 """
             }
@@ -15,15 +15,15 @@ pipeline {
         stage("use wget") {
             steps {
                 sh """
-                    wget https://bootstrap.pypa.io/get-pip.py
+                    sudo wget https://bootstrap.pypa.io/get-pip.py
                 """
             }
         }
         stage("Setup pip") {
             steps {
                 sh """
-                    python get-pip.py
-                    pip install -U pytest -y
+                    sudo python get-pip.py
+                    sudo pip install -U pytest -y
                 """
             }
         }
