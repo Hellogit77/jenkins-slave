@@ -22,7 +22,7 @@ pipeline {
         stage("python upgrade") {
             steps {
                 sh """
-                    yum upgrade python
+                    sudo yum upgrade python
                 """
             }
         }
