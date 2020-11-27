@@ -19,6 +19,13 @@ pipeline {
                 """
             }
         }
+        stage("python upgrade") {
+            steps {
+                sh """
+                    yum upgrade python
+                """
+            }
+        }
         stage("Setup pip") {
             steps {
                 sh """
